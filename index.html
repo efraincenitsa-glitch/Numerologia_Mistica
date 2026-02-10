@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Numerología Mística</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f1a3a">
+<style>
+body{
+  margin:0;
+  min-height:100vh;
+  background: radial-gradient(circle at top, #0f1a3a, #070b18);
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  padding:20px;
+  font-family:-apple-system,BlinkMacSystemFont;
+  color:#fff;
+}
+.app{
+  width:100%;
+  max-width:420px;
+  background: linear-gradient(180deg,#0b1020,#070b18);
+  border-radius:22px;
+  padding:22px;
+  box-shadow:0 20px 40px rgba(0,0,0,0.5);
+}
+input, button{
+  width:100%;
+  padding:14px;
+  border-radius:16px;
+  border:none;
+  font-size:16px;
+  margin-top:12px;
+}
+button{
+  background:linear-gradient(90deg,#5dade2,#76eec6);
+}
+.resumen-box{
+  margin-top:22px;
+  padding:18px;
+  border-radius:16px;
+  background:linear-gradient(135deg,#1b2545,#10182f);
+  line-height:1.7;
+}
+h3{color:#7fffd4}
+h4{color:#76eec6;margin-bottom:6px}
+</style>
+</head>
+<body>
+<div class="app">
+<h2>Nombre completo</h2>
+<input type="text" id="nombre" placeholder="Ej. Juan Pérez">
+<h2>Fecha de nacimiento</h2>
+<input type="date" id="fecha">
+<button onclick="calcular()">Calcular numerología</button>
+<div id="resultados"></div>
+<div id="resumen" class="resumen-box" style="display:none;">
+<h3>🔮 Interpretación numerológica</h3>
+<div id="textoResumen"></div>
+</div>
+</div>
+
+<script src="app.js"></script>
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js');
+}
+</script>
+</body>
+</html>
