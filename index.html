@@ -4,8 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Numerología Mística</title>
+
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0f1a3a">
+
+<!-- Icono grande para iOS y escritorio -->
+<link rel="apple-touch-icon" sizes="1024x1024" href="icon-1024.png">
+<link rel="icon" type="image/png" sizes="1024x1024" href="icon-1024.png">
+
 <style>
 body{
   margin:0;
@@ -18,6 +24,7 @@ body{
   font-family:-apple-system,BlinkMacSystemFont;
   color:#fff;
 }
+
 .app{
   width:100%;
   max-width:420px;
@@ -26,6 +33,20 @@ body{
   padding:22px;
   box-shadow:0 20px 40px rgba(0,0,0,0.5);
 }
+
+/* Icono visible dentro de la app */
+.logo{
+  display:flex;
+  justify-content:center;
+  margin-bottom:14px;
+}
+.logo img{
+  width:96px;
+  height:96px;
+  border-radius:22px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.5);
+}
+
 input, button{
   width:100%;
   padding:14px;
@@ -34,9 +55,11 @@ input, button{
   font-size:16px;
   margin-top:12px;
 }
+
 button{
   background:linear-gradient(90deg,#5dade2,#76eec6);
 }
+
 .resumen-box{
   margin-top:22px;
   padding:18px;
@@ -44,22 +67,36 @@ button{
   background:linear-gradient(135deg,#1b2545,#10182f);
   line-height:1.7;
 }
+
 h3{color:#7fffd4}
 h4{color:#76eec6;margin-bottom:6px}
 </style>
 </head>
+
 <body>
+
 <div class="app">
-<h2>Nombre completo</h2>
-<input type="text" id="nombre" placeholder="Ej. Juan Pérez">
-<h2>Fecha de nacimiento</h2>
-<input type="date" id="fecha">
-<button onclick="calcular()">Calcular numerología</button>
-<div id="resultados"></div>
-<div id="resumen" class="resumen-box" style="display:none;">
-<h3>🔮 Interpretación numerológica</h3>
-<div id="textoResumen"></div>
-</div>
+
+  <!-- ICONO 1024 MOSTRADO -->
+  <div class="logo">
+    <img src="icon-1024.png" alt="Numerología Mística">
+  </div>
+
+  <h2>Nombre completo</h2>
+  <input type="text" id="nombre" placeholder="Ej. Juan Pérez">
+
+  <h2>Fecha de nacimiento</h2>
+  <input type="date" id="fecha">
+
+  <button onclick="calcular()">Calcular numerología</button>
+
+  <div id="resultados"></div>
+
+  <div id="resumen" class="resumen-box" style="display:none;">
+    <h3>🔮 Interpretación numerológica</h3>
+    <div id="textoResumen"></div>
+  </div>
+
 </div>
 
 <script src="app.js"></script>
@@ -68,5 +105,6 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('service-worker.js');
 }
 </script>
+
 </body>
 </html>
