@@ -1,0 +1,8 @@
+{
+"name":"Numerología Mística",
+"short_name":"Numerología",
+"display":"standalone",
+"start_url":"index.html",
+"background_color":"#0b1020",
+"theme_color":"#0b1020"
+}

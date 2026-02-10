@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Numerología Mística</title>
+<link rel="manifest" href="manifest.json">
+<style>
+body{
+  margin:0;
+  min-height:100vh;
+  background: radial-gradient(circle at top, #0f1a3a, #070b18);
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  padding:20px;
+  font-family:-apple-system,BlinkMacSystemFont;
+  color:#fff;
+}
+
+.app{
+  width:100%;
+  max-width:420px;
+  background: linear-gradient(180deg,#0b1020,#070b18);
+  border-radius:22px;
+  padding:22px;
+  box-shadow:0 20px 40px rgba(0,0,0,0.5);
+}
+
+input, button{
+  width:100%;
+  padding:14px;
+  border-radius:16px;
+  border:none;
+  font-size:16px;
+  margin-top:12px;
+}
+
+button{
+  background:linear-gradient(90deg,#5dade2,#76eec6);
+}
+
+.resultado p{
+  margin:6px 0;
+}
+
+.resumen-box{
+  margin-top:22px;
+  padding:18px;
+  border-radius:16px;
+  background:linear-gradient(135deg,#1b2545,#10182f);
+  line-height:1.7;
+}
+
+h3{color:#7fffd4}
+h4{color:#76eec6;margin-bottom:6px}
+</style>
+</head>
+<body>
+
+<div class="app">
+<h2>Nombre completo</h2>
+<input type="text" id="nombre" placeholder="Ej. Juan Pérez">
+
+<h2>Fecha de nacimiento</h2>
+<input type="date" id="fecha">
+
+<button onclick="calcular()">Calcular numerología</button>
+
+<div id="resultados" class="resultado"></div>
+
+<div id="resumen" class="resumen-box" style="display:none;">
+<h3>🔮 Interpretación numerológica</h3>
+<div id="textoResumen"></div>
+</div>
+</div>
+
+<script>
+const valores = {
+ A:1,B:2,C:3,D:4,E:5,F:6,G:7,H:8,I:9,
+ J:1,K:2,L:3,M:4,N:5,O:6,P:7,Q:8,R:9,
+ S:1,T:2,U:3,V:4,W:5,X:6,Y:7,Z:8
+};
+
+const interpretaciones = {
+ camino:{
+  1:"liderazgo, iniciativa y capacidad para abrir caminos propios. Vienes a aprender independencia y confianza.",
+  2:"sensibilidad, cooperación y diplomacia. Tu misión está ligada a unir y armonizar.",
+  3:"expresión creativa, comunicación y alegría. Viniste a inspirar a otros con tu energía.",
+  4:"orden, constancia y construcción sólida. Tu aprendizaje es la disciplina y la estabilidad.",
+  5:"libertad, cambio y aprendizaje constante. Tu alma busca movimiento y experiencia.",
+  6:"responsabilidad, amor y servicio. Tu misión está ligada a cuidar y equilibrar.",
+  7:"introspección, sabiduría y espiritualidad. Buscas comprender lo profundo.",
+  8:"poder personal, logros y materialización. Aprendes a manejar autoridad y abundancia.",
+  9:"humanismo, cierre de ciclos y compasión. Vienes a servir a un propósito mayor.",
+  11:"intuición elevada y misión espiritual. Eres un canal de inspiración."
+ },
+ alma:{
+  1:"desea independencia y afirmación personal.",
+  2:"busca amor, paz y conexión emocional.",
+  3:"anhela expresarse y ser escuchada.",
+  4:"necesita seguridad y bases firmes.",
+  5:"desea libertad y nuevas experiencias.",
+  6:"busca armonía y vínculos profundos.",
+  7:"anhela conocimiento interior.",
+  8:"desea reconocimiento y éxito.",
+  9:"busca ayudar y trascender."
+ },
+ personalidad:{
+  1:"proyecta seguridad y determinación.",
+  2:"se muestra amable y conciliadora.",
+  3:"irradia simpatía y carisma.",
+  4:"se percibe responsable y confiable.",
+  5:"se muestra inquieta y adaptable.",
+  6:"proyecta protección y cercanía.",
+  7:"se muestra reservada y analítica.",
+  8:"proyecta autoridad y firmeza.",
+  9:"se percibe comprensiva y solidaria."
+ }
+};
+
+function reducir(n){
+ while(n>9 && n!==11 && n!==22){
+  n = n.toString().split('').reduce((a,b)=>a+ +b,0);
+ }
+ return n;
+}
+
+function calcularNombre(nombre){
+ return reducir(nombre.toUpperCase().replace(/[^A-Z]/g,"")
+   .split('').reduce((s,l)=>s+(valores[l]||0),0));
+}
+
+function calcular(){
+ const nombre = document.getElementById('nombre').value.trim();
+ const fecha = new Date(document.getElementById('fecha').value);
+ if(!nombre || !fecha.getTime()) return;
+
+ const camino = reducir(fecha.getDate()+fecha.getMonth()+1+fecha.getFullYear());
+ const expresion = calcularNombre(nombre);
+ const alma = reducir(expresion+1);
+ const personalidad = reducir(expresion+2);
+ const anio = reducir(fecha.getDate()+fecha.getMonth()+1+2026);
+
+ document.getElementById("resultados").innerHTML = `
+ <p><strong>${nombre}</strong></p>
+ <p>Camino de Vida: ${camino}</p>
+ <p>Expresión: ${expresion}</p>
+ <p>Alma: ${alma}</p>
+ <p>Personalidad: ${personalidad}</p>
+ <p>Año Personal 2026: ${anio}</p>`;
+
+ generarResumen(nombre,camino,alma,personalidad);
+}
+
+function generarResumen(nombre,camino,alma,personalidad){
+ document.getElementById("textoResumen").innerHTML = `
+ <h4>✨ Camino de Vida ${camino}</h4>
+ <p>${interpretaciones.camino[camino]}</p>
+
+ <h4>💖 Alma ${alma}</h4>
+ <p>En tu interior, tu alma ${interpretaciones.alma[alma]}</p>
+
+ <h4>🎭 Personalidad ${personalidad}</h4>
+ <p>Hacia el mundo, tu personalidad ${interpretaciones.personalidad[personalidad]}</p>
+ `;
+ document.getElementById("resumen").style.display="block";
+}
+</script>
+
+</body>
+</html>
