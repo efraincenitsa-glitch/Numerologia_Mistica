@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Numerología Mística</title>
+<title>Numerología Mística PRO</title>
 
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0f1a3a">
@@ -13,63 +13,357 @@
 <link rel="icon" type="image/png" sizes="1024x1024" href="icon-1024.png">
 
 <style>
+*{
+  box-sizing:border-box;
+}
+
 body{
   margin:0;
   min-height:100vh;
-  background: radial-gradient(circle at top, #0f1a3a, #070b18);
+  background:
+    radial-gradient(circle at top left, rgba(118,238,198,.18), transparent 35%),
+    radial-gradient(circle at top right, rgba(93,173,226,.18), transparent 35%),
+    linear-gradient(180deg,#0f1a3a,#070b18 60%,#030611);
   display:flex;
   justify-content:center;
   align-items:flex-start;
   padding:20px;
-  font-family:-apple-system,BlinkMacSystemFont;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
   color:#fff;
 }
 
 .app{
   width:100%;
-  max-width:420px;
-  background: linear-gradient(180deg,#0b1020,#070b18);
-  border-radius:22px;
+  max-width:480px;
+  background:linear-gradient(180deg,rgba(11,16,32,.98),rgba(7,11,24,.98));
+  border-radius:26px;
   padding:22px;
-  box-shadow:0 20px 40px rgba(0,0,0,0.5);
+  box-shadow:0 24px 55px rgba(0,0,0,0.58);
+  border:1px solid rgba(255,255,255,.08);
+  overflow:hidden;
 }
 
-/* Icono visible dentro de la app */
 .logo{
   display:flex;
   justify-content:center;
   margin-bottom:14px;
 }
+
 .logo img{
-  width:96px;
-  height:96px;
-  border-radius:22px;
-  box-shadow:0 8px 20px rgba(0,0,0,0.5);
+  width:104px;
+  height:104px;
+  border-radius:26px;
+  box-shadow:0 10px 28px rgba(0,0,0,0.55);
+  object-fit:cover;
+}
+
+.header{
+  text-align:center;
+  margin-bottom:22px;
+}
+
+.header h1{
+  font-size:26px;
+  margin:8px 0 6px;
+  color:#7fffd4;
+  letter-spacing:.4px;
+}
+
+.header p{
+  margin:0;
+  color:#c7d8ff;
+  font-size:14px;
+  line-height:1.5;
+}
+
+.form-section{
+  margin-top:18px;
+}
+
+label{
+  display:block;
+  font-size:14px;
+  color:#b9c7ec;
+  margin-top:14px;
+  margin-bottom:6px;
 }
 
 input, button{
   width:100%;
-  padding:14px;
-  border-radius:16px;
+  padding:15px;
+  border-radius:17px;
   border:none;
   font-size:16px;
-  margin-top:12px;
+  outline:none;
+}
+
+input{
+  background:#111a33;
+  color:#fff;
+  border:1px solid rgba(255,255,255,.08);
+}
+
+input::placeholder{
+  color:#7e8baa;
 }
 
 button{
+  margin-top:18px;
+  cursor:pointer;
+  color:#07111f;
+  font-weight:800;
   background:linear-gradient(90deg,#5dade2,#76eec6);
+  box-shadow:0 12px 25px rgba(93,173,226,.22);
+  transition:.2s ease;
+}
+
+button:hover{
+  transform:translateY(-1px);
+  box-shadow:0 16px 30px rgba(118,238,198,.28);
+}
+
+button:active{
+  transform:scale(.98);
+}
+
+.notice{
+  display:none;
+  margin-top:15px;
+  padding:13px 15px;
+  border-radius:15px;
+  background:rgba(255,82,82,.13);
+  border:1px solid rgba(255,82,82,.35);
+  color:#ffdede;
+  line-height:1.5;
+  font-size:14px;
+}
+
+.resultados{
+  margin-top:22px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:14px;
+}
+
+.card{
+  padding:18px;
+  border-radius:20px;
+  background:
+    linear-gradient(135deg,rgba(35,48,88,.96),rgba(14,20,38,.96));
+  border:1px solid rgba(255,255,255,.09);
+  box-shadow:0 12px 24px rgba(0,0,0,.35);
+  line-height:1.65;
+}
+
+.card.destacada{
+  background:
+    radial-gradient(circle at top right,rgba(127,255,212,.17),transparent 35%),
+    linear-gradient(135deg,rgba(30,54,96,.98),rgba(13,19,38,.98));
+  border:1px solid rgba(127,255,212,.22);
+}
+
+.card h3,
+.card h4{
+  margin:0 0 8px;
+  color:#76eec6;
+}
+
+.card p{
+  margin:8px 0 0;
+  color:#eaf1ff;
+}
+
+.numero-principal{
+  font-size:56px;
+  font-weight:900;
+  text-align:center;
+  color:#7fffd4;
+  margin:10px 0 4px;
+  text-shadow:0 0 20px rgba(127,255,212,.22);
+}
+
+.subnumero{
+  text-align:center;
+  color:#b9c7ec;
+  font-size:13px;
+}
+
+.kpi-row{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  margin-top:14px;
+}
+
+.kpi{
+  padding:14px;
+  border-radius:16px;
+  background:rgba(255,255,255,.055);
+  border:1px solid rgba(255,255,255,.07);
+  text-align:center;
+}
+
+.kpi .valor{
+  font-size:30px;
+  font-weight:900;
+  color:#7fffd4;
+}
+
+.kpi .texto{
+  font-size:12px;
+  color:#c7d8ff;
+  margin-top:4px;
+}
+
+.barra{
+  width:100%;
+  height:24px;
+  background:#080d1c;
+  border-radius:99px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.08);
+  margin-top:10px;
+}
+
+.fill{
+  height:100%;
+  background:linear-gradient(90deg,#00e676,#00b0ff);
+  color:#04101c;
+  font-weight:900;
+  text-align:center;
+  line-height:24px;
+  font-size:13px;
+  min-width:36px;
+}
+
+.lista{
+  margin:8px 0 0;
+  padding-left:20px;
+}
+
+.lista li{
+  margin-bottom:8px;
+  color:#eaf1ff;
+}
+
+.tag-list{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:10px;
+}
+
+.tag{
+  padding:8px 11px;
+  border-radius:999px;
+  background:rgba(127,255,212,.12);
+  border:1px solid rgba(127,255,212,.22);
+  color:#dffff6;
+  font-size:13px;
+}
+
+.mini{
+  color:#b9c7ec;
+  font-size:13px;
+  line-height:1.5;
+}
+
+.tabla{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:10px;
+  overflow:hidden;
+  border-radius:14px;
+}
+
+.tabla th,
+.tabla td{
+  padding:10px;
+  border-bottom:1px solid rgba(255,255,255,.07);
+  text-align:left;
+  font-size:13px;
+}
+
+.tabla th{
+  color:#7fffd4;
+  background:rgba(255,255,255,.05);
+}
+
+.tabla td{
+  color:#eaf1ff;
 }
 
 .resumen-box{
-  margin-top:22px;
-  padding:18px;
-  border-radius:16px;
-  background:linear-gradient(135deg,#1b2545,#10182f);
-  line-height:1.7;
+  margin-top:18px;
+  padding:20px;
+  border-radius:20px;
+  background:
+    radial-gradient(circle at top left,rgba(118,238,198,.15),transparent 38%),
+    linear-gradient(135deg,#1b2545,#10182f);
+  line-height:1.75;
+  border:1px solid rgba(127,255,212,.15);
 }
 
-h3{color:#7fffd4}
-h4{color:#76eec6;margin-bottom:6px}
+.resumen-box h3{
+  color:#7fffd4;
+  margin:0 0 10px;
+}
+
+.footer-note{
+  margin-top:16px;
+  color:#8998bd;
+  font-size:12px;
+  text-align:center;
+  line-height:1.5;
+}
+
+.actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:14px;
+}
+
+.btn-secundario{
+  background:rgba(255,255,255,.08);
+  color:#eaf1ff;
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow:none;
+}
+
+.btn-secundario:hover{
+  box-shadow:0 12px 22px rgba(0,0,0,.25);
+}
+
+@media(max-width:430px){
+  body{
+    padding:12px;
+  }
+
+  .app{
+    padding:18px;
+    border-radius:22px;
+  }
+
+  .header h1{
+    font-size:23px;
+  }
+
+  .numero-principal{
+    font-size:48px;
+  }
+
+  .kpi-row{
+    grid-template-columns:1fr;
+  }
+
+  .actions{
+    grid-template-columns:1fr;
+  }
+}
 </style>
 </head>
 
@@ -77,32 +371,818 @@ h4{color:#76eec6;margin-bottom:6px}
 
 <div class="app">
 
-  <!-- ICONO 1024 MOSTRADO -->
   <div class="logo">
     <img src="icon-1024.png" alt="Numerología Mística">
   </div>
 
-  <h2>Nombre completo</h2>
-  <input type="text" id="nombre" placeholder="Ej. Juan Pérez">
+  <div class="header">
+    <h1>Numerología Mística PRO</h1>
+    <p>
+      Calcula tu mapa numerológico, propósito de vida, energía personal,
+      fortalezas, desafíos, compatibilidad interna y pronóstico anual.
+    </p>
+  </div>
 
-  <h2>Fecha de nacimiento</h2>
-  <input type="date" id="fecha">
+  <div class="form-section">
+    <label for="nombre">Nombre completo</label>
+    <input type="text" id="nombre" placeholder="Ej. Juan Carlos Pérez López" autocomplete="name">
 
-  <button onclick="calcular()">Calcular numerología</button>
+    <label for="fecha">Fecha de nacimiento</label>
+    <input type="date" id="fecha">
 
-  <div id="resultados"></div>
+    <button onclick="calcular()">Calcular numerología</button>
+
+    <div class="actions">
+      <button class="btn-secundario" onclick="limpiar()">Limpiar</button>
+      <button class="btn-secundario" onclick="copiarResumen()">Copiar resumen</button>
+    </div>
+
+    <div id="aviso" class="notice"></div>
+  </div>
+
+  <div id="resultados" class="resultados"></div>
 
   <div id="resumen" class="resumen-box" style="display:none;">
-    <h3>🔮 Interpretación numerológica</h3>
+    <h3>🔮 Interpretación numerológica completa</h3>
     <div id="textoResumen"></div>
+  </div>
+
+  <div class="footer-note">
+    Esta herramienta es de uso recreativo, reflexivo y de entretenimiento.
+    No sustituye orientación profesional, médica, psicológica, financiera o legal.
   </div>
 
 </div>
 
-<script src="app.js"></script>
 <script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('service-worker.js');
+const tablaNumerologica = {
+  A:1, J:1, S:1,
+  B:2, K:2, T:2,
+  C:3, L:3, U:3,
+  D:4, M:4, V:4,
+  E:5, N:5, W:5,
+  F:6, Ñ:6, O:6, X:6,
+  G:7, P:7, Y:7,
+  H:8, Q:8, Z:8,
+  I:9, R:9
+};
+
+const vocales = ["A","E","I","O","U"];
+
+const interpretaciones = {
+  1:{
+    titulo:"Liderazgo, iniciativa y creación",
+    resumen:"Representa independencia, fuerza de voluntad, originalidad y capacidad para abrir caminos.",
+    fortalezas:["Liderazgo natural","Iniciativa","Determinación","Capacidad para tomar decisiones","Independencia"],
+    desafios:["Evitar la impaciencia","No caer en actitudes dominantes","Aprender a escuchar","Trabajar la cooperación"],
+    profesion:["Emprendimiento","Dirección de equipos","Ventas","Innovación","Administración"],
+    colores:["Rojo","Dorado","Blanco"],
+    dias:["Domingo","Lunes"],
+    energia:{mental:86,emocional:58,espiritual:64,material:82}
+  },
+  2:{
+    titulo:"Cooperación, sensibilidad y armonía",
+    resumen:"Refleja empatía, diplomacia, intuición emocional y capacidad para unir personas.",
+    fortalezas:["Empatía","Paciencia","Diplomacia","Trabajo en equipo","Escucha activa"],
+    desafios:["Evitar dependencia emocional","Fortalecer seguridad personal","Poner límites","No absorber problemas ajenos"],
+    profesion:["Recursos humanos","Atención al cliente","Mediación","Psicología","Educación"],
+    colores:["Azul claro","Plata","Verde agua"],
+    dias:["Lunes","Viernes"],
+    energia:{mental:62,emocional:90,espiritual:76,material:55}
+  },
+  3:{
+    titulo:"Comunicación, creatividad y expresión",
+    resumen:"Indica talento para comunicar, inspirar, crear ambientes positivos y expresar ideas.",
+    fortalezas:["Creatividad","Carisma","Expresión verbal","Optimismo","Facilidad social"],
+    desafios:["Evitar dispersión","Terminar lo que inicia","Controlar impulsividad","Trabajar disciplina"],
+    profesion:["Comunicación","Marketing","Diseño","Capacitación","Arte"],
+    colores:["Amarillo","Naranja","Turquesa"],
+    dias:["Miércoles","Jueves"],
+    energia:{mental:74,emocional:78,espiritual:63,material:60}
+  },
+  4:{
+    titulo:"Orden, estructura y responsabilidad",
+    resumen:"Simboliza disciplina, estabilidad, sentido práctico y capacidad para construir bases sólidas.",
+    fortalezas:["Organización","Responsabilidad","Constancia","Pensamiento práctico","Confiabilidad"],
+    desafios:["Evitar rigidez","Adaptarse al cambio","No cargar con todo","Equilibrar trabajo y descanso"],
+    profesion:["Ingeniería","Administración","Operaciones","Contabilidad","Sistemas"],
+    colores:["Verde oscuro","Café","Gris"],
+    dias:["Sábado","Martes"],
+    energia:{mental:80,emocional:52,espiritual:55,material:92}
+  },
+  5:{
+    titulo:"Libertad, cambio y movimiento",
+    resumen:"Representa adaptación, curiosidad, versatilidad y necesidad de vivir experiencias nuevas.",
+    fortalezas:["Adaptabilidad","Energía social","Curiosidad","Rapidez mental","Capacidad de cambio"],
+    desafios:["Evitar inconstancia","Controlar excesos","Desarrollar enfoque","No huir de compromisos"],
+    profesion:["Ventas","Turismo","Comunicación","Eventos","Tecnología"],
+    colores:["Azul eléctrico","Verde","Naranja"],
+    dias:["Miércoles","Viernes"],
+    energia:{mental:84,emocional:68,espiritual:60,material:70}
+  },
+  6:{
+    titulo:"Responsabilidad, familia y servicio",
+    resumen:"Habla de protección, compromiso, sentido humano, belleza y búsqueda de equilibrio.",
+    fortalezas:["Compromiso","Cuidado por otros","Sentido estético","Responsabilidad","Lealtad"],
+    desafios:["No sobreproteger","Evitar cargar responsabilidades ajenas","Soltar el perfeccionismo","Cuidarse a sí mismo"],
+    profesion:["Salud","Educación","Diseño","Recursos humanos","Servicio social"],
+    colores:["Rosa","Verde","Azul pastel"],
+    dias:["Viernes","Lunes"],
+    energia:{mental:68,emocional:88,espiritual:74,material:70}
+  },
+  7:{
+    titulo:"Análisis, sabiduría e introspección",
+    resumen:"Se relaciona con investigación, búsqueda de verdad, espiritualidad, análisis profundo y observación.",
+    fortalezas:["Análisis profundo","Intuición","Pensamiento crítico","Investigación","Sabiduría interior"],
+    desafios:["Evitar aislamiento","Expresar emociones","Confiar en otros","No caer en exceso de crítica"],
+    profesion:["Investigación","Sistemas","Docencia","Análisis de datos","Consultoría"],
+    colores:["Morado","Índigo","Azul profundo"],
+    dias:["Lunes","Sábado"],
+    energia:{mental:94,emocional:54,espiritual:92,material:58}
+  },
+  8:{
+    titulo:"Poder, logro y administración material",
+    resumen:"Indica ambición positiva, liderazgo ejecutivo, visión financiera y capacidad para concretar metas.",
+    fortalezas:["Gestión","Ambición","Negociación","Autoridad","Estrategia"],
+    desafios:["Evitar exceso de control","Equilibrar vida personal","No medir todo por logros","Usar el poder con ética"],
+    profesion:["Dirección","Finanzas","Negocios","Gestión de proyectos","Operaciones"],
+    colores:["Negro","Dorado","Azul marino"],
+    dias:["Martes","Sábado"],
+    energia:{mental:82,emocional:58,espiritual:55,material:96}
+  },
+  9:{
+    titulo:"Humanidad, cierre de ciclos y sabiduría universal",
+    resumen:"Representa compasión, visión amplia, aprendizaje profundo y deseo de aportar algo significativo.",
+    fortalezas:["Compasión","Generosidad","Visión global","Inspiración","Capacidad de cierre"],
+    desafios:["Soltar el pasado","No sacrificarse demasiado","Poner límites","Evitar idealizar personas"],
+    profesion:["Docencia","Arte","Servicio social","Liderazgo comunitario","Comunicación"],
+    colores:["Violeta","Blanco","Dorado"],
+    dias:["Jueves","Domingo"],
+    energia:{mental:78,emocional:86,espiritual:90,material:62}
+  },
+  11:{
+    titulo:"Inspiración, intuición elevada y visión espiritual",
+    resumen:"Número maestro relacionado con sensibilidad, inspiración, creatividad superior y capacidad de guiar.",
+    fortalezas:["Intuición elevada","Inspiración","Magnetismo","Creatividad espiritual","Capacidad para motivar"],
+    desafios:["Manejar ansiedad","Aterrizar ideas","No saturarse emocionalmente","Construir estabilidad"],
+    profesion:["Coaching","Arte","Docencia","Comunicación","Terapias"],
+    colores:["Blanco","Plata","Violeta"],
+    dias:["Lunes","Jueves"],
+    energia:{mental:88,emocional:92,espiritual:98,material:55}
+  },
+  22:{
+    titulo:"Constructor maestro, visión grande y materialización",
+    resumen:"Número maestro que combina visión espiritual con capacidad práctica para construir obras importantes.",
+    fortalezas:["Visión estratégica","Construcción de proyectos","Disciplina","Impacto social","Liderazgo práctico"],
+    desafios:["No cargar demasiado","Evitar presión excesiva","Delegar","Mantener equilibrio emocional"],
+    profesion:["Dirección","Arquitectura","Ingeniería","Empresas","Proyectos sociales"],
+    colores:["Azul marino","Dorado","Verde oscuro"],
+    dias:["Sábado","Martes"],
+    energia:{mental:90,emocional:66,espiritual:86,material:98}
+  },
+  33:{
+    titulo:"Maestro compasivo, servicio y sanación",
+    resumen:"Número maestro asociado con amor universal, enseñanza, servicio profundo y responsabilidad espiritual.",
+    fortalezas:["Servicio","Compasión","Enseñanza","Protección","Inspiración emocional"],
+    desafios:["No sacrificarse en exceso","No absorber dolor ajeno","Cuidar su energía","Poner límites claros"],
+    profesion:["Educación","Salud","Arte","Terapia","Liderazgo humano"],
+    colores:["Rosa","Blanco","Verde"],
+    dias:["Viernes","Domingo"],
+    energia:{mental:78,emocional:96,espiritual:96,material:64}
+  }
+};
+
+const meses = [
+  "Enero","Febrero","Marzo","Abril","Mayo","Junio",
+  "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"
+];
+
+function normalizarTexto(texto){
+  return texto
+    .toUpperCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g,"")
+    .replace(/[^A-ZÑ]/g,"");
+}
+
+function reducirNumero(numero, conservarMaestros = true){
+  let n = Math.abs(Number(numero)) || 0;
+
+  while(n > 9){
+    if(conservarMaestros && (n === 11 || n === 22 || n === 33)){
+      return n;
+    }
+
+    n = String(n)
+      .split("")
+      .reduce((acc,digito) => acc + Number(digito), 0);
+  }
+
+  return n;
+}
+
+function sumarDigitosTexto(texto){
+  return String(texto)
+    .replace(/\D/g,"")
+    .split("")
+    .reduce((acc,digito) => acc + Number(digito), 0);
+}
+
+function valorNombre(nombre, tipo = "todos"){
+  const limpio = normalizarTexto(nombre);
+  let total = 0;
+
+  for(const letra of limpio){
+    const esVocal = vocales.includes(letra);
+    const valor = tablaNumerologica[letra] || 0;
+
+    if(tipo === "todos"){
+      total += valor;
+    }
+
+    if(tipo === "vocales" && esVocal){
+      total += valor;
+    }
+
+    if(tipo === "consonantes" && !esVocal){
+      total += valor;
+    }
+  }
+
+  return reducirNumero(total);
+}
+
+function calcularNumeroVida(fecha){
+  const soloNumeros = fecha.replace(/\D/g,"");
+  const suma = soloNumeros
+    .split("")
+    .reduce((acc,digito) => acc + Number(digito), 0);
+
+  return reducirNumero(suma);
+}
+
+function calcularAnioPersonal(fecha){
+  const partes = fecha.split("-");
+  const anioActual = new Date().getFullYear();
+  const mes = Number(partes[1]);
+  const dia = Number(partes[2]);
+
+  const suma = sumarDigitosTexto(String(dia)) +
+               sumarDigitosTexto(String(mes)) +
+               sumarDigitosTexto(String(anioActual));
+
+  return reducirNumero(suma);
+}
+
+function calcularMesPersonal(anioPersonal, indiceMes){
+  return reducirNumero(anioPersonal + indiceMes + 1, false);
+}
+
+function obtenerEdad(fecha){
+  const nacimiento = new Date(fecha + "T00:00:00");
+  const hoy = new Date();
+
+  let edad = hoy.getFullYear() - nacimiento.getFullYear();
+  const mes = hoy.getMonth() - nacimiento.getMonth();
+
+  if(mes < 0 || (mes === 0 && hoy.getDate() < nacimiento.getDate())){
+    edad--;
+  }
+
+  return edad;
+}
+
+function obtenerCicloVida(edad){
+  if(edad < 28){
+    return {
+      etapa:"Primer ciclo",
+      descripcion:"Etapa de formación, descubrimiento personal, aprendizaje emocional y construcción de identidad."
+    };
+  }
+
+  if(edad < 56){
+    return {
+      etapa:"Segundo ciclo",
+      descripcion:"Etapa de consolidación, decisiones importantes, desarrollo profesional y construcción de estabilidad."
+    };
+  }
+
+  return {
+    etapa:"Tercer ciclo",
+    descripcion:"Etapa de sabiduría, legado, enseñanza, cierre de ciclos y transmisión de experiencia."
+  };
+}
+
+function obtenerInterpretacion(numero){
+  return interpretaciones[numero] || interpretaciones[reducirNumero(numero,false)] || interpretaciones[1];
+}
+
+function calcularCompatibilidadInterna(vida, expresion, alma, personalidad){
+  let base = 60;
+
+  if(vida === expresion) base += 18;
+  if(vida === alma) base += 12;
+  if(expresion === alma) base += 10;
+  if(Math.abs(vida - expresion) <= 2) base += 8;
+  if(Math.abs(alma - personalidad) <= 2) base += 6;
+
+  if([11,22,33].includes(vida)) base += 5;
+  if([11,22,33].includes(expresion)) base += 5;
+
+  if(base > 98) base = 98;
+  if(base < 35) base = 35;
+
+  return base;
+}
+
+function promedioEnergia(numeros){
+  const acumulado = {
+    mental:0,
+    emocional:0,
+    espiritual:0,
+    material:0
+  };
+
+  numeros.forEach(num => {
+    const data = obtenerInterpretacion(num).energia;
+    acumulado.mental += data.mental;
+    acumulado.emocional += data.emocional;
+    acumulado.espiritual += data.espiritual;
+    acumulado.material += data.material;
+  });
+
+  return {
+    mental:Math.round(acumulado.mental / numeros.length),
+    emocional:Math.round(acumulado.emocional / numeros.length),
+    espiritual:Math.round(acumulado.espiritual / numeros.length),
+    material:Math.round(acumulado.material / numeros.length)
+  };
+}
+
+function construirBarra(valor){
+  return `
+    <div class="barra">
+      <div class="fill" style="width:${valor}%">${valor}%</div>
+    </div>
+  `;
+}
+
+function construirTags(lista){
+  return `
+    <div class="tag-list">
+      ${lista.map(item => `<span class="tag">${item}</span>`).join("")}
+    </div>
+  `;
+}
+
+function construirLista(lista){
+  return `
+    <ul class="lista">
+      ${lista.map(item => `<li>${item}</li>`).join("")}
+    </ul>
+  `;
+}
+
+function obtenerMensajeCompatibilidad(porcentaje){
+  if(porcentaje >= 85){
+    return "Tu mapa muestra una fuerte coherencia interna. Existe buena alineación entre lo que deseas, lo que expresas y el camino que vienes a desarrollar.";
+  }
+
+  if(porcentaje >= 70){
+    return "Tu configuración es favorable, aunque existen áreas que requieren equilibrio. Puedes lograr mucha estabilidad si ordenas tus prioridades.";
+  }
+
+  if(porcentaje >= 55){
+    return "Tu mapa indica contrastes internos. Puedes sentir que una parte de ti busca seguridad mientras otra desea cambio o reconocimiento.";
+  }
+
+  return "Tu configuración muestra una tensión importante entre deseos internos, expresión externa y propósito. El reto principal es integrar tus decisiones con mayor claridad.";
+}
+
+function obtenerProposito(vida, expresion, alma){
+  const v = obtenerInterpretacion(vida);
+  const e = obtenerInterpretacion(expresion);
+  const a = obtenerInterpretacion(alma);
+
+  return `
+    Tu propósito combina la energía de <strong>${v.titulo.toLowerCase()}</strong>,
+    con una forma de expresión orientada a <strong>${e.titulo.toLowerCase()}</strong>.
+    En el fondo, tu motivación interna se relaciona con <strong>${a.titulo.toLowerCase()}</strong>.
+    Esto indica que tu crecimiento personal se fortalece cuando tus decisiones externas
+    están alineadas con lo que realmente te mueve por dentro.
+  `;
+}
+
+function generarPronostico(anioPersonal){
+  let filas = "";
+
+  for(let i = 0; i < 12; i++){
+    const mesPersonal = calcularMesPersonal(anioPersonal, i);
+    const info = obtenerInterpretacion(mesPersonal);
+
+    filas += `
+      <tr>
+        <td>${meses[i]}</td>
+        <td>${mesPersonal}</td>
+        <td>${info.titulo}</td>
+      </tr>
+    `;
+  }
+
+  return `
+    <table class="tabla">
+      <thead>
+        <tr>
+          <th>Mes</th>
+          <th>Número</th>
+          <th>Tendencia</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${filas}
+      </tbody>
+    </table>
+  `;
+}
+
+function calcular(){
+  const nombre = document.getElementById("nombre").value.trim();
+  const fecha = document.getElementById("fecha").value;
+  const aviso = document.getElementById("aviso");
+  const resultados = document.getElementById("resultados");
+  const resumen = document.getElementById("resumen");
+  const textoResumen = document.getElementById("textoResumen");
+
+  aviso.style.display = "none";
+  aviso.innerHTML = "";
+  resultados.innerHTML = "";
+  resumen.style.display = "none";
+  textoResumen.innerHTML = "";
+
+  if(!nombre){
+    mostrarAviso("Escribe tu nombre completo para calcular los números relacionados con expresión, alma y personalidad.");
+    return;
+  }
+
+  if(!fecha){
+    mostrarAviso("Selecciona tu fecha de nacimiento para calcular número de vida, año personal y ciclo actual.");
+    return;
+  }
+
+  const nacimiento = new Date(fecha + "T00:00:00");
+
+  if(isNaN(nacimiento.getTime())){
+    mostrarAviso("La fecha ingresada no es válida. Revisa el día, mes y año.");
+    return;
+  }
+
+  const vida = calcularNumeroVida(fecha);
+  const expresion = valorNombre(nombre, "todos");
+  const alma = valorNombre(nombre, "vocales");
+  const personalidad = valorNombre(nombre, "consonantes");
+  const destino = reducirNumero(vida + expresion + alma + personalidad);
+  const anioPersonal = calcularAnioPersonal(fecha);
+  const edad = obtenerEdad(fecha);
+  const ciclo = obtenerCicloVida(edad);
+  const compatibilidad = calcularCompatibilidadInterna(vida, expresion, alma, personalidad);
+  const energia = promedioEnergia([vida, expresion, alma, personalidad, destino, anioPersonal]);
+
+  const infoVida = obtenerInterpretacion(vida);
+  const infoExpresion = obtenerInterpretacion(expresion);
+  const infoAlma = obtenerInterpretacion(alma);
+  const infoPersonalidad = obtenerInterpretacion(personalidad);
+  const infoDestino = obtenerInterpretacion(destino);
+  const infoAnio = obtenerInterpretacion(anioPersonal);
+
+  const fortalezasUnicas = [...new Set([
+    ...infoVida.fortalezas,
+    ...infoExpresion.fortalezas,
+    ...infoAlma.fortalezas
+  ])].slice(0,8);
+
+  const desafiosUnicos = [...new Set([
+    ...infoVida.desafios,
+    ...infoExpresion.desafios,
+    ...infoPersonalidad.desafios
+  ])].slice(0,8);
+
+  const profesionesUnicas = [...new Set([
+    ...infoVida.profesion,
+    ...infoExpresion.profesion,
+    ...infoDestino.profesion
+  ])].slice(0,10);
+
+  const coloresUnicos = [...new Set([
+    ...infoVida.colores,
+    ...infoAlma.colores,
+    ...infoAnio.colores
+  ])].slice(0,8);
+
+  const diasUnicos = [...new Set([
+    ...infoVida.dias,
+    ...infoAnio.dias
+  ])];
+
+  resultados.innerHTML = `
+    <div class="grid">
+
+      <div class="card destacada">
+        <h3>🌟 Mapa numerológico de ${nombre}</h3>
+        <p class="mini">
+          Edad aproximada: <strong>${edad} años</strong><br>
+          Ciclo actual: <strong>${ciclo.etapa}</strong>
+        </p>
+
+        <div class="kpi-row">
+          <div class="kpi">
+            <div class="valor">${vida}</div>
+            <div class="texto">Número de vida</div>
+          </div>
+
+          <div class="kpi">
+            <div class="valor">${expresion}</div>
+            <div class="texto">Expresión</div>
+          </div>
+
+          <div class="kpi">
+            <div class="valor">${alma}</div>
+            <div class="texto">Alma</div>
+          </div>
+
+          <div class="kpi">
+            <div class="valor">${personalidad}</div>
+            <div class="texto">Personalidad</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h4>✨ Número de Vida</h4>
+        <div class="numero-principal">${vida}</div>
+        <div class="subnumero">${infoVida.titulo}</div>
+        <p>${infoVida.resumen}</p>
+      </div>
+
+      <div class="card">
+        <h4>🌟 Número de Expresión</h4>
+        <div class="numero-principal">${expresion}</div>
+        <div class="subnumero">${infoExpresion.titulo}</div>
+        <p>
+          Este número describe cómo proyectas tus capacidades,
+          talentos y forma de actuar ante el mundo.
+        </p>
+        <p>${infoExpresion.resumen}</p>
+      </div>
+
+      <div class="card">
+        <h4>❤️ Número del Alma</h4>
+        <div class="numero-principal">${alma}</div>
+        <div class="subnumero">${infoAlma.titulo}</div>
+        <p>
+          Representa tus deseos internos, motivaciones profundas y aquello
+          que emocionalmente necesitas para sentirte en equilibrio.
+        </p>
+        <p>${infoAlma.resumen}</p>
+      </div>
+
+      <div class="card">
+        <h4>🎭 Número de Personalidad</h4>
+        <div class="numero-principal">${personalidad}</div>
+        <div class="subnumero">${infoPersonalidad.titulo}</div>
+        <p>
+          Muestra la imagen que proyectas hacia otras personas y la primera
+          impresión que puedes generar.
+        </p>
+        <p>${infoPersonalidad.resumen}</p>
+      </div>
+
+      <div class="card">
+        <h4>🧭 Número del Destino Integrado</h4>
+        <div class="numero-principal">${destino}</div>
+        <div class="subnumero">${infoDestino.titulo}</div>
+        <p>
+          Este número combina vida, expresión, alma y personalidad para dar una
+          lectura general de dirección, aprendizaje y potencial de desarrollo.
+        </p>
+        <p>${infoDestino.resumen}</p>
+      </div>
+
+      <div class="card">
+        <h4>📅 Año Personal ${new Date().getFullYear()}</h4>
+        <div class="numero-principal">${anioPersonal}</div>
+        <div class="subnumero">${infoAnio.titulo}</div>
+        <p>
+          Este año se mueve con una energía enfocada en:
+          <strong>${infoAnio.titulo.toLowerCase()}</strong>.
+        </p>
+        <p>${infoAnio.resumen}</p>
+      </div>
+
+      <div class="card">
+        <h4>💞 Compatibilidad Interna</h4>
+        ${construirBarra(compatibilidad)}
+        <p>${obtenerMensajeCompatibilidad(compatibilidad)}</p>
+      </div>
+
+      <div class="card">
+        <h4>🔄 Ciclo de Vida Actual</h4>
+        <p><strong>${ciclo.etapa}</strong></p>
+        <p>${ciclo.descripcion}</p>
+      </div>
+
+      <div class="card">
+        <h4>🧠 Mapa Energético</h4>
+
+        <p class="mini">Mental</p>
+        ${construirBarra(energia.mental)}
+
+        <p class="mini">Emocional</p>
+        ${construirBarra(energia.emocional)}
+
+        <p class="mini">Espiritual</p>
+        ${construirBarra(energia.espiritual)}
+
+        <p class="mini">Material</p>
+        ${construirBarra(energia.material)}
+      </div>
+
+      <div class="card">
+        <h4>💪 Fortalezas Principales</h4>
+        ${construirLista(fortalezasUnicas)}
+      </div>
+
+      <div class="card">
+        <h4>⚠️ Desafíos Personales</h4>
+        ${construirLista(desafiosUnicos)}
+      </div>
+
+      <div class="card">
+        <h4>🎯 Propósito de Vida</h4>
+        <p>${obtenerProposito(vida, expresion, alma)}</p>
+      </div>
+
+      <div class="card">
+        <h4>💼 Profesiones o actividades afines</h4>
+        ${construirTags(profesionesUnicas)}
+      </div>
+
+      <div class="card">
+        <h4>🎨 Colores favorables</h4>
+        ${construirTags(coloresUnicos)}
+      </div>
+
+      <div class="card">
+        <h4>📌 Días favorables</h4>
+        ${construirTags(diasUnicos)}
+      </div>
+
+      <div class="card">
+        <h4>🗓️ Pronóstico numerológico mensual</h4>
+        <p class="mini">
+          Tendencia general por mes tomando como base tu año personal actual.
+        </p>
+        ${generarPronostico(anioPersonal)}
+  ;
+
+  const resumenTexto = `
+    <p>
+      El análisis numerológico de <strong>${nombre}</strong> muestra una combinación
+      principal basada en el número de vida <strong>${vida}</strong>, el número de
+      expresión <strong>${expresion}</strong>, el número del alma <strong>${alma}</strong>
+      y el número de personalidad <strong>${personalidad}</strong>.
+    </p>
+
+    <p>
+      Tu número de vida indica una tendencia hacia
+      <strong>${infoVida.titulo.toLowerCase()}</strong>. Esto marca el tipo de
+      aprendizaje central que puede acompañarte durante tu desarrollo personal.
+      Por otra parte, tu número de expresión señala que tus talentos se manifiestan
+      a través de <strong>${infoExpresion.titulo.toLowerCase()}</strong>.
+    </p>
+
+    <p>
+      En el plano interno, el número del alma revela una motivación relacionada con
+      <strong>${infoAlma.titulo.toLowerCase()}</strong>. Sin embargo, la forma en que
+      otras personas pueden percibirte está influida por el número de personalidad
+      <strong>${personalidad}</strong>, asociado con
+      <strong>${infoPersonalidad.titulo.toLowerCase()}</strong>.
+    </p>
+
+    <p>
+      Tu compatibilidad interna es de <strong>${compatibilidad}%</strong>.
+      ${obtenerMensajeCompatibilidad(compatibilidad)}
+    </p>
+
+    <p>
+      Actualmente transitas el <strong>${ciclo.etapa}</strong>, una fase donde
+      ${ciclo.descripcion.toLowerCase()}
+    </p>
+
+    <p>
+      Para el año <strong>${new Date().getFullYear()}</strong>, tu año personal es
+      <strong>${anioPersonal}</strong>, lo que favorece experiencias ligadas a
+      <strong>${infoAnio.titulo.toLowerCase()}</strong>.
+    </p>
+  `;
+
+  textoResumen.innerHTML = resumenTexto;
+  resumen.style.display = "block";
+
+  guardarUltimoAnalisis({
+    nombre,
+    fecha,
+    vida,
+    expresion,
+    alma,
+    personalidad,
+    destino,
+    anioPersonal,
+    compatibilidad,
+    edad,
+    ciclo:ciclo.etapa
+  });
+}
+
+function mostrarAviso(mensaje){
+  const aviso = document.getElementById("aviso");
+  aviso.innerHTML = mensaje;
+  aviso.style.display = "block";
+}
+
+function limpiar(){
+  document.getElementById("nombre").value = "";
+  document.getElementById("fecha").value = "";
+  document.getElementById("resultados").innerHTML = "";
+  document.getElementById("textoResumen").innerHTML = "";
+  document.getElementById("resumen").style.display = "none";
+  document.getElementById("aviso").style.display = "none";
+}
+
+function guardarUltimoAnalisis(data){
+  try{
+    localStorage.setItem("numerologiaUltimoAnalisis", JSON.stringify(data));
+  }catch(error){
+    console.warn("No se pudo guardar el análisis localmente:", error);
+  }
+}
+
+function restaurarUltimoAnalisis(){
+  try{
+    const data = localStorage.getItem("numerologiaUltimoAnalisis");
+
+    if(!data){
+      return;
+    }
+
+    const analisis = JSON.parse(data);
+
+    if(analisis.nombre){
+      document.getElementById("nombre").value = analisis.nombre;
+    }
+
+    if(analisis.fecha){
+      document.getElementById("fecha").value = analisis.fecha;
+    }
+  }catch(error){
+    console.warn("No se pudo restaurar el último análisis:", error);
+  }
+}
+
+function copiarResumen(){
+  const resumen = document.getElementById("textoResumen").innerText.trim();
+
+  if(!resumen){
+    mostrarAviso("Primero calcula la numerología para poder copiar el resumen.");
+    return;
+  }
+
+  navigator.clipboard.writeText(resumen)
+    .then(() => {
+      mostrarAviso("Resumen copiado correctamente al portapapeles.");
+      const aviso = document.getElementById("aviso");
+      aviso.style.background = "rgba(0,230,118,.13)";
+      aviso.style.border = "1px solid rgba(0,230,118,.35)";
+      aviso.style.color = "#d9ffe9";
+
+      setTimeout(() => {
+        aviso.style.display = "none";
+        aviso.style.background = "rgba(255,82,82,.13)";
+        aviso.style.border = "1px solid rgba(255,82,82,.35)";
+        aviso.style.color = "#ffdede";
+      }, 2500);
+    })
+    .catch(() => {
+      mostrarAviso("No se pudo copiar automáticamente. Puedes seleccionar el texto y copiarlo manualmente.");
+    });
+}
+
+window.addEventListener("load", restaurarUltimoAnalisis);
+
+if("serviceWorker" in navigator){
+  navigator.serviceWorker.register("service-worker.js")
+    .catch(error => {
+      console.warn("No se pudo registrar el Service Worker:", error);
+    });
 }
 </script>
 
