@@ -746,8 +746,14 @@ function construirBarra(valor){
 function construirTags(lista){
   return `
     <div class="tag-list">
-      ${lista.map(item => `<span class="tag">${escapeHTML(item)}</span `;
+      ${lista.map(item =>
+        `<span class="tag">${escapeHTML(item)}</span>`
+      ).join("")}
+    </div>
+  `;
 }
+
+console.log("JAVASCRIPT CARGADO");
 
 function construirLista(lista){
   return `
@@ -832,6 +838,9 @@ function mostrarAviso(mensaje, tipo = "error"){
 }
 
 function calcular(){
+
+  console.log("BOTON CALCULAR EJECUTADO");
+
   const nombre = document.getElementById("nombre").value.trim();
   const fecha = document.getElementById("fecha").value;
   const aviso = document.getElementById("aviso");
