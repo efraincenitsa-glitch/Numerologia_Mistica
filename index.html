@@ -8,7 +8,6 @@
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0f1a3a">
 
-<!-- Icono grande para iOS y escritorio -->
 <link rel="apple-touch-icon" sizes="1024x1024" href="icon-1024.png">
 <link rel="icon" type="image/png" sizes="1024x1024" href="icon-1024.png">
 
@@ -136,6 +135,12 @@ button:active{
   color:#ffdede;
   line-height:1.5;
   font-size:14px;
+}
+
+.notice.ok{
+  background:rgba(0,230,118,.13);
+  border:1px solid rgba(0,230,118,.35);
+  color:#d9ffe9;
 }
 
 .resultados{
@@ -390,11 +395,11 @@ button:active{
     <label for="fecha">Fecha de nacimiento</label>
     <input type="date" id="fecha">
 
-    <button onclick="calcular()">Calcular numerología</button>
+    <button type="button" id="btnCalcular">Calcular numerología</button>
 
     <div class="actions">
-      <button class="btn-secundario" onclick="limpiar()">Limpiar</button>
-      <button class="btn-secundario" onclick="copiarResumen()">Copiar resumen</button>
+      <button type="button" class="btn-secundario" id="btnLimpiar">Limpiar</button>
+      <button type="button" class="btn-secundario" id="btnCopiar">Copiar resumen</button>
     </div>
 
     <div id="aviso" class="notice"></div>
@@ -557,6 +562,15 @@ const meses = [
   "Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"
 ];
 
+function escapeHTML(texto){
+  return String(texto)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
 function normalizarTexto(texto){
   return texto
     .toUpperCase()
@@ -614,6 +628,7 @@ function valorNombre(nombre, tipo = "todos"){
 
 function calcularNumeroVida(fecha){
   const soloNumeros = fecha.replace(/\D/g,"");
+
   const suma = soloNumeros
     .split("")
     .reduce((acc,digito) => acc + Number(digito), 0);
@@ -705,6 +720,7 @@ function promedioEnergia(numeros){
 
   numeros.forEach(num => {
     const data = obtenerInterpretacion(num).energia;
+
     acumulado.mental += data.mental;
     acumulado.emocional += data.emocional;
     acumulado.espiritual += data.espiritual;
@@ -730,15 +746,13 @@ function construirBarra(valor){
 function construirTags(lista){
   return `
     <div class="tag-list">
-      ${lista.map(item => `<span class="tag">${item}</span>`).join("")}
-    </div>
-  `;
+      ${lista.map(item => `<span class="tag">${escapeHTML(item)}</span `;
 }
 
 function construirLista(lista){
   return `
     <ul class="lista">
-      ${lista.map(item => `<li>${item}</li>`).join("")}
+      ${lista.map(item => `<li>${escapeHTML(item)}</li>`).join("")}
     </ul>
   `;
 }
@@ -765,9 +779,9 @@ function obtenerProposito(vida, expresion, alma){
   const a = obtenerInterpretacion(alma);
 
   return `
-    Tu propósito combina la energía de <strong>${v.titulo.toLowerCase()}</strong>,
-    con una forma de expresión orientada a <strong>${e.titulo.toLowerCase()}</strong>.
-    En el fondo, tu motivación interna se relaciona con <strong>${a.titulo.toLowerCase()}</strong>.
+    Tu propósito combina la energía de <strong>${escapeHTML(v.titulo.toLowerCase())}</strong>,
+    con una forma de expresión orientada a <strong>${escapeHTML(e.titulo.toLowerCase())}</strong>.
+    En el fondo, tu motivación interna se relaciona con <strong>${escapeHTML(a.titulo.toLowerCase())}</strong>.
     Esto indica que tu crecimiento personal se fortalece cuando tus decisiones externas
     están alineadas con lo que realmente te mueve por dentro.
   `;
@@ -784,7 +798,7 @@ function generarPronostico(anioPersonal){
       <tr>
         <td>${meses[i]}</td>
         <td>${mesPersonal}</td>
-        <td>${info.titulo}</td>
+        <td>${escapeHTML(info.titulo)}</td>
       </tr>
     `;
   }
@@ -805,6 +819,18 @@ function generarPronostico(anioPersonal){
   `;
 }
 
+function mostrarAviso(mensaje, tipo = "error"){
+  const aviso = document.getElementById("aviso");
+  aviso.innerHTML = escapeHTML(mensaje);
+  aviso.classList.remove("ok");
+
+  if(tipo === "ok"){
+    aviso.classList.add("ok");
+  }
+
+  aviso.style.display = "block";
+}
+
 function calcular(){
   const nombre = document.getElementById("nombre").value.trim();
   const fecha = document.getElementById("fecha").value;
@@ -814,6 +840,7 @@ function calcular(){
   const textoResumen = document.getElementById("textoResumen");
 
   aviso.style.display = "none";
+  aviso.classList.remove("ok");
   aviso.innerHTML = "";
   resultados.innerHTML = "";
   resumen.style.display = "none";
@@ -887,10 +914,10 @@ function calcular(){
     <div class="grid">
 
       <div class="card destacada">
-        <h3>🌟 Mapa numerológico de ${nombre}</h3>
+        <h3>🌟 Mapa numerológico de ${escapeHTML(nombre)}</h3>
         <p class="mini">
           Edad aproximada: <strong>${edad} años</strong><br>
-          Ciclo actual: <strong>${ciclo.etapa}</strong>
+          Ciclo actual: <strong>${escapeHTML(ciclo.etapa)}</strong>
         </p>
 
         <div class="kpi-row">
@@ -919,75 +946,75 @@ function calcular(){
       <div class="card">
         <h4>✨ Número de Vida</h4>
         <div class="numero-principal">${vida}</div>
-        <div class="subnumero">${infoVida.titulo}</div>
-        <p>${infoVida.resumen}</p>
+        <div class="subnumero">${escapeHTML(infoVida.titulo)}</div>
+        <p>${escapeHTML(infoVida.resumen)}</p>
       </div>
 
       <div class="card">
         <h4>🌟 Número de Expresión</h4>
         <div class="numero-principal">${expresion}</div>
-        <div class="subnumero">${infoExpresion.titulo}</div>
+        <div class="subnumero">${escapeHTML(infoExpresion.titulo)}</div>
         <p>
           Este número describe cómo proyectas tus capacidades,
           talentos y forma de actuar ante el mundo.
         </p>
-        <p>${infoExpresion.resumen}</p>
+        <p>${escapeHTML(infoExpresion.resumen)}</p>
       </div>
 
       <div class="card">
         <h4>❤️ Número del Alma</h4>
         <div class="numero-principal">${alma}</div>
-        <div class="subnumero">${infoAlma.titulo}</div>
+        <div class="subnumero">${escapeHTML(infoAlma.titulo)}</div>
         <p>
           Representa tus deseos internos, motivaciones profundas y aquello
           que emocionalmente necesitas para sentirte en equilibrio.
         </p>
-        <p>${infoAlma.resumen}</p>
+        <p>${escapeHTML(infoAlma.resumen)}</p>
       </div>
 
       <div class="card">
         <h4>🎭 Número de Personalidad</h4>
         <div class="numero-principal">${personalidad}</div>
-        <div class="subnumero">${infoPersonalidad.titulo}</div>
+        <div class="subnumero">${escapeHTML(infoPersonalidad.titulo)}</div>
         <p>
           Muestra la imagen que proyectas hacia otras personas y la primera
           impresión que puedes generar.
         </p>
-        <p>${infoPersonalidad.resumen}</p>
+        <p>${escapeHTML(infoPersonalidad.resumen)}</p>
       </div>
 
       <div class="card">
         <h4>🧭 Número del Destino Integrado</h4>
         <div class="numero-principal">${destino}</div>
-        <div class="subnumero">${infoDestino.titulo}</div>
+        <div class="subnumero">${escapeHTML(infoDestino.titulo)}</div>
         <p>
           Este número combina vida, expresión, alma y personalidad para dar una
           lectura general de dirección, aprendizaje y potencial de desarrollo.
         </p>
-        <p>${infoDestino.resumen}</p>
+        <p>${escapeHTML(infoDestino.resumen)}</p>
       </div>
 
       <div class="card">
         <h4>📅 Año Personal ${new Date().getFullYear()}</h4>
         <div class="numero-principal">${anioPersonal}</div>
-        <div class="subnumero">${infoAnio.titulo}</div>
+        <div class="subnumero">${escapeHTML(infoAnio.titulo)}</div>
         <p>
           Este año se mueve con una energía enfocada en:
-          <strong>${infoAnio.titulo.toLowerCase()}</strong>.
+          <strong>${escapeHTML(infoAnio.titulo.toLowerCase())}</strong>.
         </p>
-        <p>${infoAnio.resumen}</p>
+        <p>${escapeHTML(infoAnio.resumen)}</p>
       </div>
 
       <div class="card">
         <h4>💞 Compatibilidad Interna</h4>
         ${construirBarra(compatibilidad)}
-        <p>${obtenerMensajeCompatibilidad(compatibilidad)}</p>
+        <p>${escapeHTML(obtenerMensajeCompatibilidad(compatibilidad))}</p>
       </div>
 
       <div class="card">
         <h4>🔄 Ciclo de Vida Actual</h4>
-        <p><strong>${ciclo.etapa}</strong></p>
-        <p>${ciclo.descripcion}</p>
+        <p><strong>${escapeHTML(ciclo.etapa)}</strong></p>
+        <p>${escapeHTML(ciclo.descripcion)}</p>
       </div>
 
       <div class="card">
@@ -1042,11 +1069,14 @@ function calcular(){
           Tendencia general por mes tomando como base tu año personal actual.
         </p>
         ${generarPronostico(anioPersonal)}
-  ;
+      </div>
+
+    </div>
+  `;
 
   const resumenTexto = `
     <p>
-      El análisis numerológico de <strong>${nombre}</strong> muestra una combinación
+      El análisis numerológico de <strong>${escapeHTML(nombre)}</strong> muestra una combinación
       principal basada en el número de vida <strong>${vida}</strong>, el número de
       expresión <strong>${expresion}</strong>, el número del alma <strong>${alma}</strong>
       y el número de personalidad <strong>${personalidad}</strong>.
@@ -1054,34 +1084,34 @@ function calcular(){
 
     <p>
       Tu número de vida indica una tendencia hacia
-      <strong>${infoVida.titulo.toLowerCase()}</strong>. Esto marca el tipo de
+      <strong>${escapeHTML(infoVida.titulo.toLowerCase())}</strong>. Esto marca el tipo de
       aprendizaje central que puede acompañarte durante tu desarrollo personal.
       Por otra parte, tu número de expresión señala que tus talentos se manifiestan
-      a través de <strong>${infoExpresion.titulo.toLowerCase()}</strong>.
+      a través de <strong>${escapeHTML(infoExpresion.titulo.toLowerCase())}</strong>.
     </p>
 
     <p>
       En el plano interno, el número del alma revela una motivación relacionada con
-      <strong>${infoAlma.titulo.toLowerCase()}</strong>. Sin embargo, la forma en que
+      <strong>${escapeHTML(infoAlma.titulo.toLowerCase())}</strong>. Sin embargo, la forma en que
       otras personas pueden percibirte está influida por el número de personalidad
       <strong>${personalidad}</strong>, asociado con
-      <strong>${infoPersonalidad.titulo.toLowerCase()}</strong>.
+      <strong>${escapeHTML(infoPersonalidad.titulo.toLowerCase())}</strong>.
     </p>
 
     <p>
       Tu compatibilidad interna es de <strong>${compatibilidad}%</strong>.
-      ${obtenerMensajeCompatibilidad(compatibilidad)}
+      ${escapeHTML(obtenerMensajeCompatibilidad(compatibilidad))}
     </p>
 
     <p>
-      Actualmente transitas el <strong>${ciclo.etapa}</strong>, una fase donde
-      ${ciclo.descripcion.toLowerCase()}
+      Actualmente transitas el <strong>${escapeHTML(ciclo.etapa)}</strong>, una fase donde
+      ${escapeHTML(ciclo.descripcion.toLowerCase())}
     </p>
 
     <p>
       Para el año <strong>${new Date().getFullYear()}</strong>, tu año personal es
       <strong>${anioPersonal}</strong>, lo que favorece experiencias ligadas a
-      <strong>${infoAnio.titulo.toLowerCase()}</strong>.
+      <strong>${escapeHTML(infoAnio.titulo.toLowerCase())}</strong>.
     </p>
   `;
 
@@ -1089,24 +1119,18 @@ function calcular(){
   resumen.style.display = "block";
 
   guardarUltimoAnalisis({
-    nombre,
-    fecha,
-    vida,
-    expresion,
-    alma,
-    personalidad,
-    destino,
-    anioPersonal,
-    compatibilidad,
-    edad,
+    nombre:nombre,
+    fecha:fecha,
+    vida:vida,
+    expresion:expresion,
+    alma:alma,
+    personalidad:personalidad,
+    destino:destino,
+    anioPersonal:anioPersonal,
+    compatibilidad:compatibilidad,
+    edad:edad,
     ciclo:ciclo.etapa
   });
-}
-
-function mostrarAviso(mensaje){
-  const aviso = document.getElementById("aviso");
-  aviso.innerHTML = mensaje;
-  aviso.style.display = "block";
 }
 
 function limpiar(){
@@ -1115,7 +1139,17 @@ function limpiar(){
   document.getElementById("resultados").innerHTML = "";
   document.getElementById("textoResumen").innerHTML = "";
   document.getElementById("resumen").style.display = "none";
-  document.getElementById("aviso").style.display = "none";
+
+  const aviso = document.getElementById("aviso");
+  aviso.style.display = "none";
+  aviso.classList.remove("ok");
+  aviso.innerHTML = "";
+
+  try{
+    localStorage.removeItem("numerologiaUltimoAnalisis");
+  }catch(error){
+    console.warn("No se pudo limpiar el almacenamiento local:", error);
+  }
 }
 
 function guardarUltimoAnalisis(data){
@@ -1156,34 +1190,55 @@ function copiarResumen(){
     return;
   }
 
-  navigator.clipboard.writeText(resumen)
-    .then(() => {
-      mostrarAviso("Resumen copiado correctamente al portapapeles.");
-      const aviso = document.getElementById("aviso");
-      aviso.style.background = "rgba(0,230,118,.13)";
-      aviso.style.border = "1px solid rgba(0,230,118,.35)";
-      aviso.style.color = "#d9ffe9";
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(resumen)
+      .then(() => {
+        mostrarAviso("Resumen copiado correctamente al portapapeles.", "ok");
 
-      setTimeout(() => {
-        aviso.style.display = "none";
-        aviso.style.background = "rgba(255,82,82,.13)";
-        aviso.style.border = "1px solid rgba(255,82,82,.35)";
-        aviso.style.color = "#ffdede";
-      }, 2500);
-    })
-    .catch(() => {
-      mostrarAviso("No se pudo copiar automáticamente. Puedes seleccionar el texto y copiarlo manualmente.");
-    });
+        setTimeout(() => {
+          const aviso = document.getElementById("aviso");
+          aviso.style.display = "none";
+          aviso.classList.remove("ok");
+        }, 2500);
+      })
+      .catch(() => {
+        copiarManual(resumen);
+      });
+  }else{
+    copiarManual(resumen);
+  }
 }
 
-window.addEventListener("load", restaurarUltimoAnalisis);
+function copiarManual(texto){
+  const temporal = document.createElement("textarea");
+  temporal.value = texto;
+  document.body.appendChild(temporal);
+  temporal.select();
 
-if("serviceWorker" in navigator){
-  navigator.serviceWorker.register("service-worker.js")
-    .catch(error => {
-      console.warn("No se pudo registrar el Service Worker:", error);
-    });
+  try{
+    document.execCommand("copy");
+    mostrarAviso("Resumen copiado correctamente al portapapeles.", "ok");
+  }catch(error){
+    mostrarAviso("No se pudo copiar automáticamente. Puedes seleccionar el texto y copiarlo manualmente.");
+  }
+
+  document.body.removeChild(temporal);
 }
+
+document.addEventListener("DOMContentLoaded", function(){
+  restaurarUltimoAnalisis();
+
+  document.getElementById("btnCalcular").addEventListener("click", calcular);
+  document.getElementById("btnLimpiar").addEventListener("click", limpiar);
+  document.getElementById("btnCopiar").addEventListener("click", copiarResumen);
+
+  if("serviceWorker" in navigator){
+    navigator.serviceWorker.register("service-worker.js")
+      .catch(error => {
+        console.warn("No se pudo registrar el Service Worker:", error);
+      });
+  }
+});
 </script>
 
 </body>
